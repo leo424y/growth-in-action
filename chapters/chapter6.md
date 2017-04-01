@@ -1,22 +1,22 @@
-应用API
+應用API
 ===
 
-在下一章开始之前，我们先来搭建一下API平台，不仅仅可以提供一些额外的功能，还可以为我们的APP提供API。
+在下一章開始之前，我們先來搭建一下API平臺，不僅僅可以提供一些額外的功能，還可以為我們的APP提供API。
 
-博客列表
+部落格列表
 ---
 
 ### Django REST Framework
 
-在这里，我们需要用到一个名为Django REST Framework的RESTful API库。通过这个库，我们可以快速创建我们所需要的API。
+在這裡，我們需要用到一個名為Django REST Framework的RESTful API庫。通過這個庫，我們可以快速建立我們所需要的API。
 
-Django REST Framework 这个名字很直白，就是基于 Django 的 REST 框架。因此，首先我们仍是要安装这个库：
+Django REST Framework 這個名字很直白，就是基於 Django 的 REST 框架。因此，首先我們仍是要安裝這個庫：
 
 ```
 pip install djangorestframework
 ```
 
-然后把它添加到``INSTALLED_APPS``中：
+然後把它新增到``INSTALLED_APPS``中：
 
 ```python
 INSTALLED_APPS = (
@@ -40,7 +40,7 @@ INSTALLED_APPS = (
 )
 ```
 
-接着我们可以在我们的API中创建一个URL，用于匹配它的授权机制。
+接著我們可以在我們的API中建立一個URL，用於匹配它的授權機制。
 
 ```
 urlpatterns = [
@@ -49,11 +49,11 @@ urlpatterns = [
 ]
 ```
 
-不过这个API，目前并没有多大的用途。只有当我们在制作一些需要权限验证的接口时，它才会突显它的重要性。
+不過這個API，目前並沒有多大的用途。只有當我們在製作一些需要許可權驗證的介面時，它才會突顯它的重要性。
 
-### 创建博客列表API
+### 建立部落格列表API
 
-为了方便我们继续展开后面的内容，我们先来创建一个博客列表API。参考Django REST Framework的官方文档，我们可以很快地创建出下面的Demo:
+為了方便我們繼續展開後面的內容，我們先來建立一個部落格列表API。參考Django REST Framework的官方文件，我們可以很快地建立出下面的Demo:
 
 ```
 from django.contrib.auth.models import User
@@ -71,14 +71,14 @@ class BlogpostSet(viewsets.ModelViewSet):
     serializer_class = BlogpsotSerializer
 ```
 
-在上面这个例子中，API由两个部分组成：
+在上面這個例子中，API由兩個部分組成：
 
- - ViewSets，用于定义视图的展现形式——如返回哪些内容，需要做哪些权限处理
- - Serializers，用于定义API的表现形式——如返回哪些字段，返回怎样的格式
+ - ViewSets，用於定義檢視的展現形式——如返回哪些內容，需要做哪些許可權處理
+ - Serializers，用於定義API的表現形式——如返回哪些欄位，返回怎樣的格式
 
-我们在我们的URL中，会定义相应的规则到ViewSet，而ViewSet则通过``serializer_class``找到对应的``Serializers``。我们将Blogpost的所有对象赋予queryset，并返回这些值。在BlogpsotSerializer中，我们定义了我们要返回的几个字段：``title``、``author``、``body``、``slug``。
+我們在我們的URL中，會定義相應的規則到ViewSet，而ViewSet則通過``serializer_class``找到對應的``Serializers``。我們將Blogpost的所有物件賦予queryset，並返回這些值。在BlogpsotSerializer中，我們定義了我們要返回的幾個欄位：``title``、``author``、``body``、``slug``。
 
-接着，我们可以在我们的``urls.py``配置URL。
+接著，我們可以在我們的``urls.py``配置URL。
 
 ```python
 ...
@@ -95,54 +95,54 @@ urlpatterns = [,
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ```
 
-我们使用默认的Router来配置我们的URL，即DefaultRouter，它提供了一个非常简单的机制来自动检测URL规则。因此，我们只需要注册好我们的url——``blogpost``以及它值``BlogpostSet``即可。随后，我们再为其定义一个根URL即可:
+我們使用預設的Router來配置我們的URL，即DefaultRouter，它提供了一個非常簡單的機制來自動檢測URL規則。因此，我們只需要註冊好我們的url——``blogpost``以及它值``BlogpostSet``即可。隨後，我們再為其定義一個根URL即可:
 
 ```python
 url(r'^api/', include(apiRouter.urls))
 ```
 
-### 测试 API
+### 測試 API
 
-现在，我们可以访问[http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/)来访问我们现在的API。由于Django REST Framework提供了一个UI机制，所以我们可以在网页上直接看到我们所有的API：
+現在，我們可以訪問[http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/)來訪問我們現在的API。由於Django REST Framework提供了一個UI機制，所以我們可以在網頁上直接看到我們所有的API：
 
 ![Django REST Framework列表](http://growth-in-action.phodal.com/images/django-rest-framework-api-lists.png)
 
-然后，点击页面中的[http://127.0.0.1:8000/api/blogpost/](http://127.0.0.1:8000/api/blogpost/)，我们就可以访问博客相关的API了，如下图所示:
+然後，點選頁面中的[http://127.0.0.1:8000/api/blogpost/](http://127.0.0.1:8000/api/blogpost/)，我們就可以訪問部落格相關的API了，如下圖所示:
 
-![博客API](http://growth-in-action.phodal.com/images/drf-blogppost-set-list.png)
+![部落格API](http://growth-in-action.phodal.com/images/drf-blogppost-set-list.png)
 
-在页面上显示了所有的博客内容，在页面的下面有一个表单可以先让我们来创建数据：
+在頁面上顯示了所有的部落格內容，在頁面的下面有一個表單可以先讓我們來建立資料：
 
-![创建博客的表单](http://growth-in-action.phodal.com/images/api-post-form.png)
+![建立部落格的表單](http://growth-in-action.phodal.com/images/api-post-form.png)
 
-直接在表单中添加数据，我们就可以完成数据创建了。
+直接在表單中新增資料，我們就可以完成資料建立了。
 
-当然，我们也可以直接用命令行工具来测试，执行：
+當然，我們也可以直接用命令列工具來測試，執行：
 
 ```bash
 curl -i  http://127.0.0.1:8000/api/blogpost/
 ```
 
-即可返回相应的结果：
+即可返回相應的結果：
 
 ![CuRL API](http://growth-in-action.phodal.com/images/curl-api.png)
 
-自动完成
+自動完成
 ---
 
-AutoComplete是一个很有意思的功能，特别是当我们的文章很多的时候，我们可以让读者有机会能搜索到相应的功能。以Google为例，Google在我们输入一些关键字的时候，会向我们推荐一些比较流行的词条可以让我们选择。
+AutoComplete是一個很有意思的功能，特別是當我們的文章很多的時候，我們可以讓讀者有機會能搜尋到相應的功能。以Google為例，Google在我們輸入一些關鍵字的時候，會向我們推薦一些比較流行的詞條可以讓我們選擇。
 
 ![Google AutoComplete](http://growth-in-action.phodal.com/images/google-autocomplete.png)
 
-同样的，我们也可以实现一个同样的效果用于我们的博客搜索：
+同樣的，我們也可以實現一個同樣的效果用於我們的部落格搜尋：
 
-![自动完成](http://growth-in-action.phodal.com/images/autocomplete-example.png)
+![自動完成](http://growth-in-action.phodal.com/images/autocomplete-example.png)
 
-当我们输入某一些关键字的时候，就会出现文章的标题，随后我们只需要点击相应的标题即可跳转到文章。
+當我們輸入某一些關鍵字的時候，就會出現文章的標題，隨後我們只需要點選相應的標題即可跳轉到文章。
 
-### 搜索API
+### 搜尋API
 
-为了实现这个功能我们需要对之前的博客API做一些简单的改造——可以支持搜索博客标题。这里我们需要稍微扩展一下我们的博客API即可：
+為了實現這個功能我們需要對之前的部落格API做一些簡單的改造——可以支援搜尋部落格標題。這裡我們需要稍微擴充套件一下我們的部落格API即可：
 
 ```python
 class BlogpostSet(viewsets.ModelViewSet):
@@ -161,17 +161,17 @@ class BlogpostSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 ```
 
-我们添加了一个名为``search_fields``的变量，顾名思义就是定义搜索字段。接着我们覆写了ModelViewSet的list方法，它是用于列出(list)所有的结果。我们会尝试在我们的请求中获取搜索参量，如果没有的话我们就返回所有的结果。如果搜索的参数中含有标题，则从所有博客中过滤出标题中含有搜索标题中的内容，再返回这些结果。如下是一个搜索的URL：[http://127.0.0.1:8000/api/blogpost/?format=json&title=test](http://127.0.0.1:8000/api/blogpost/?format=json&title=test)，我们搜索标题中含有``test``的内容。
+我們新增了一個名為``search_fields``的變數，顧名思義就是定義搜尋欄位。接著我們覆寫了ModelViewSet的list方法，它是用於列出(list)所有的結果。我們會嘗試在我們的請求中獲取搜尋參量，如果沒有的話我們就返回所有的結果。如果搜尋的參數中含有標題，則從所有部落格中過濾出標題中含有搜尋標題中的內容，再返回這些結果。如下是一個搜尋的URL：[http://127.0.0.1:8000/api/blogpost/?format=json&title=test](http://127.0.0.1:8000/api/blogpost/?format=json&title=test)，我們搜尋標題中含有``test``的內容。
 
-同时，我们还需要为我们的apiRouter设置一个basename，即下面代码中最后的``Blogpost``
+同時，我們還需要為我們的apiRouter設定一個basename，即下面程式碼中最後的``Blogpost``
 
 ```python
 apiRouter.register(r'blogpost', BlogpostSet, 'Blogpost')
 ```
 
-### 页面实现
+### 頁面實現
 
-接着，我们就可以在页面上实现这个功能。在这里我们使用一个名为[Bootstrap-3-Typeahead](https://github.com/bassjobsen/Bootstrap-3-Typeahead)的插件来实现，下载这个插件以及它对应的CSS：[https://github.com/bassjobsen/typeahead.js-bootstrap-css](https://github.com/bassjobsen/typeahead.js-bootstrap-css)，并添加到``base.html``中，然后创建一个``main.js``文件负责相关的逻辑处理。
+接著，我們就可以在頁面上實現這個功能。在這裡我們使用一個名為[Bootstrap-3-Typeahead](https://github.com/bassjobsen/Bootstrap-3-Typeahead)的外掛來實現，下載這個外掛以及它對應的CSS：[https://github.com/bassjobsen/typeahead.js-bootstrap-css](https://github.com/bassjobsen/typeahead.js-bootstrap-css)，並新增到``base.html``中，然後建立一個``main.js``檔案負責相關的邏輯處理。
 
 ```html
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -180,20 +180,20 @@ apiRouter.register(r'blogpost', BlogpostSet, 'Blogpost')
 <script src="{% static 'js/main.js' %}"></script>
 ```
 
-接着我们需要在页面上创建对应的UI，我们可以直接在``登录``后面添加这个搜索按钮：
+接著我們需要在頁面上建立對應的UI，我們可以直接在``登入``後面新增這個搜尋按鈕：
 
 ```
 <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
     <ul class="nav navbar-nav">
         <li>
-            <a href="/pages/about/">关于我</a>
+            <a href="/pages/about/">關於我</a>
         </li>
         <li>
-            <a href="/pages/resume/">简历</a>
+            <a href="/pages/resume/">簡歷</a>
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/admin" id="loginLink">登录</a></li>
+        <li><a href="/admin" id="loginLink">登入</a></li>
     </ul>
     <div class="col-sm-3 col-md-3 pull-right">
         <form class="navbar-form" role="search">
@@ -206,15 +206,15 @@ apiRouter.register(r'blogpost', BlogpostSet, 'Blogpost')
         </form>
     </div>
 </nav>
-```      
+```
 
-我们主要是使用input标签，标签上对应有一个id
+我們主要是使用input標籤，標籤上對應有一個id
 
 ```
-<input type="text" id="typeahead-input" class="form-control" placeholder="Search" 
-```  
+<input type="text" id="typeahead-input" class="form-control" placeholder="Search"
+```
 
-对应于这个ID，我们就可以开始编写我们的功能了：
+對應於這個ID，我們就可以開始編寫我們的功能了：
 
 ```javascript
 $(document).ready(function () {
@@ -238,35 +238,35 @@ $(document).ready(function () {
 });
 ```
 
-$(document).ready()方法可以是在DOM完成加载后，运行其中的函数。接着我们开始监听``#typeahead-input``，对应的便是id为``typeahead-input``的元素。可以看到在这其中有五个对象：
+$(document).ready()方法可以是在DOM完成載入後，執行其中的函數。接著我們開始監聽``#typeahead-input``，對應的便是id為``typeahead-input``的元素。可以看到在這其中有五個物件：
 
- - source，即搜索的来源，我们返回的是我们搜索的URL。
+ - source，即搜尋的來源，我們返回的是我們搜尋的URL。
  - updater，即每次更新要做的事
- - displayText，显示在页面上的内容，如在这里我们返回的是博客的标题
- - afterSelect，每用户选中某一项后做的事，这里我们直接中转到对应的博客。
- - delay，延时500ms。
+ - displayText，顯示在頁面上的內容，如在這裡我們返回的是部落格的標題
+ - afterSelect，每使用者選中某一項後做的事，這裡我們直接中轉到對應的部落格。
+ - delay，延時500ms。
 
-虽然我们使用的是插件来完成我们的功能，但是总体的处理逻辑是：
+雖然我們使用的是外掛來完成我們的功能，但是總體的處理邏輯是：
 
-1. 监听我们的输入文本
-2. 获取API的返回结果
-3. 对返回结果进行处理——如高亮输入文本、显示到页面上
-4. 处理用户点击事件
+1. 監聽我們的輸入文字
+2. 獲取API的返回結果
+3. 對返回結果進行處理——如高亮輸入文字、顯示到頁面上
+4. 處理使用者點選事件
 
-跨域支持
+跨域支援
 ---
 
-当我们想为其他的网页提供我们的API时，可能会报错——原因是不支持跨域请求。为了方便我们下一章更好的展开，内容我们在这里对跨域进行支持。
+當我們想為其他的網頁提供我們的API時，可能會報錯——原因是不支援跨域請求。為了方便我們下一章更好的展開，內容我們在這裡對跨域進行支援。
 
-### 添加跨域支持
+### 新增跨域支援
 
-有一个名为``django-cors-headers``的插件用于实现对跨域请求的支持，我们只需要安装它，并进行一些简单的配置即可。
+有一個名為``django-cors-headers``的外掛用於實現對跨域請求的支援，我們只需要安裝它，並進行一些簡單的配置即可。
 
 ```bash
 pip install django-cors-headers
 ```
 
-安装过程如下：
+安裝過程如下：
 
 ```
 Collecting django-cors-headers
@@ -279,7 +279,7 @@ Installing collected packages: django-cors-headers
 Successfully installed django-cors-headers-1.1.0
 ```
 
-我们还需要添加到``django-cors-headers=1.1.0``到``requirements.txt``文件中，以及添加到``settings.py``中：
+我們還需要新增到``django-cors-headers=1.1.0``到``requirements.txt``檔案中，以及新增到``settings.py``中：
 
 ```
 INSTALLED_APPS = (
@@ -289,7 +289,7 @@ INSTALLED_APPS = (
 )
 ```
 
-以及对应的中间件：
+以及對應的中介軟體：
 
 ```
 MIDDLEWARE_CLASSES = (
@@ -300,10 +300,10 @@ MIDDLEWARE_CLASSES = (
 )
 ```
 
-同时还有对应的配置：
+同時還有對應的配置：
 
 ```
 CORS_ALLOW_CREDENTIALS = True
 ```
 
-现在，让我们进行下一步，开始APP吧！
+現在，讓我們進行下一步，開始APP吧！

@@ -1,29 +1,29 @@
-三步创建博客应用
+三步建立部落格應用
 ===
 
 Tasking
 ---
 
-在我们不了解Django的时候，要对这样一个任务进行Tasking，有点困难。不过，我们还是可以简单地看看是应该如何去做：
+在我們不瞭解Django的時候，要對這樣一個任務進行Tasking，有點困難。不過，我們還是可以簡單地看看是應該如何去做：
 
- - 生成APP。对于大部分主流的Web框架来说，它们都可以手动地生成一些脚手架，如Ruby语言中的Ruby On Rails、Node.js中的Express等等。
- - 创建对应的Model，即其在数据库中存储的模型与我们在代码中要使用的模型。
- - 创建程序对应的View，用于处理数据。
- - 创建程序的Template，用于显示数据。
- - 编写测试来保证功能。
+ - 生成APP。對於大部分主流的Web框架來說，它們都可以手動地生成一些腳手架，如Ruby語言中的Ruby On Rails、Node.js中的Express等等。
+ - 建立對應的Model，即其在資料庫中儲存的模型與我們在程式碼中要使用的模型。
+ - 建立程式對應的View，用於處理資料。
+ - 建立程式的Template，用於顯示資料。
+ - 編寫測試來保證功能。
 
-对于其他应用来说也是差不多的。
+對於其他應用來說也是差不多的。
 
-创建BlogpostAPP
+建立BlogpostAPP
 ---
 
 ### 生成APP
 
-现在我们可以开始创建我们的APP，使用下面的代码来创建：
+現在我們可以開始建立我們的APP，使用下面的程式碼來建立：
 
 $ django-admin startapp blogpost
 
-会在blogpost目录下，生成下面的文件：
+會在blogpost目錄下，生成下面的檔案：
 
 
 ```
@@ -38,17 +38,17 @@ $ django-admin startapp blogpost
 └── views.py
 ```
 
-### 创建Model
+### 建立Model
 
-现在，我们需要来创建博客的Model即可。对于一篇基本的博客来说，它会包含下面的几部分内容：
+現在，我們需要來建立部落格的Model即可。對於一篇基本的部落格來說，它會包含下面的幾部分內容：
 
- - 标题
+ - 標題
  - 作者
- - 链接（中文更需要一个好的链接）
- - 内容
- - 发布日期
+ - 連結（中文更需要一個好的連結）
+ - 內容
+ - 釋出日期
 
-我们就可以按照上面的内容来创建我们的Blogpost model：
+我們就可以按照上面的內容來建立我們的Blogpost model：
 
 ```python
 from django.db import models
@@ -70,9 +70,9 @@ class Blogpost(models.Model):
         return ('view_blog_post', None, { 'slug': self.slug })
 ```
 
-上面的``get_absolute_url``方法就是用于返回博客的链接。之所以使用手动而不是自动生成，是因为自动生成不靠谱，而且不利
+上面的``get_absolute_url``方法就是用於返回部落格的連結。之所以使用手動而不是自動生成，是因為自動生成不靠譜，而且不利
 
-然后在Admin注册这个Model
+然後在Admin註冊這個Model
 
 ```python
 from django.contrib import admin
@@ -85,13 +85,13 @@ class BlogpostAdmin(admin.ModelAdmin):
 admin.site.register(Blogpost, BlogpostAdmin)
 ```
 
-接着我们需要先将``blogpost``这个APP添加到``setting.py``中的``INSTALLED_APPS``字段中。然后做数据库迁移：
+接著我們需要先將``blogpost``這個APP新增到``setting.py``中的``INSTALLED_APPS``欄位中。然後做資料庫遷移：
 
 ```shelln
 python manage.py migrate
 ```
 
-这时会提示:
+這時會提示:
 
 ```shell
 Operations to perform:
@@ -102,34 +102,34 @@ Running migrations:
   Run 'manage.py makemigrations' to make new migrations, and then re-run 'manage.py migrate' to apply them.
 ```
 
-是因为我们忘记了先运行
+是因為我們忘記了先執行
 
 ``` shell
 python manage.py makemigrations
 ```
 
-进入后台，我们就可以看到BLOGPOST的一栏里，就可以对其进行相关的操作。
+進入後臺，我們就可以看到BLOGPOST的一欄裡，就可以對其進行相關的操作。
 
-![Django后台界面](http://growth-in-action.phodal.com/images/django-admin-ui.png)
+![Django後臺介面](http://growth-in-action.phodal.com/images/django-admin-ui.png)
 
-点击Blogpost的Add后，我们就会进入如下的添加博客界面：
+點選Blogpost的Add後，我們就會進入如下的新增部落格介面：
 
-![Django添加博客](http://growth-in-action.phodal.com/images/admin-blog.png)
+![Django新增部落格](http://growth-in-action.phodal.com/images/admin-blog.png)
 
-实际上，这样做的意义是将删除(Delete)、修改(Update)、添加(Create)这些内容交给用户后台来做，当然它也不需要在View/Template层来做。在我们的Template层中，我们只需要关心如何来显示这些数据。
+實際上，這樣做的意義是將刪除(Delete)、修改(Update)、新增(Create)這些內容交給使用者後臺來做，當然它也不需要在View/Template層來做。在我們的Template層中，我們只需要關心如何來顯示這些資料。
 
-现在，我们可以执行一次新的代码提交——因为现在的代码可以正常工作。这样出现问题时，我们就可以即时的返回上一版本的代码。
+現在，我們可以執行一次新的程式碼提交——因為現在的程式碼可以正常工作。這樣出現問題時，我們就可以即時的返回上一版本的程式碼。
 
 ```
 git add .
 git commit -m "create blogpost model"
 ```
 
-然后再进行下一步地操作。
+然後再進行下一步地操作。
 
 ### 配置URL
 
-现在，我们就可以在我们的``urls.py``里添加相应的route来访问页面，代码如下所示：
+現在，我們就可以在我們的``urls.py``裡新增相應的route來訪問頁面，程式碼如下所示：
 
 ```python
 from django.conf import settings
@@ -145,21 +145,21 @@ urlpatterns = [
 ]
 ```
 
-在上面的代码里，我们创建了两个route：
+在上面的程式碼裡，我們建立了兩個route：
 
- - 指向首页，其view是index
- - 指向博客详情页，其view是view_post
+ - 指向首頁，其view是index
+ - 指向部落格詳情頁，其view是view_post
 
-指向博客详情页的URL正则``r'^blog/(?P<slug>[^\.]+).html``，会将形如blog/hello-world.html中的hello-world提取出来作为参数传给view_post方法。
+指向部落格詳情頁的URL正則``r'^blog/(?P<slug>[^\.]+).html``，會將形如blog/hello-world.html中的hello-world提取出來作為參數傳給view_post方法。
 
-接着，我们就可以创建两个view。
+接著，我們就可以建立兩個view。
 
-创建View
+建立View
 ---
 
-### 创建博客列表页
+### 建立部落格列表頁
 
-对于我们的首页来说，我们可以简单的只显示五篇博客，所以我们所需要做的就是从我们的Blogpost对象中，取出前五个结果即可。代码如下所示：
+對於我們的首頁來說，我們可以簡單的只顯示五篇部落格，所以我們所需要做的就是從我們的Blogpost物件中，取出前五個結果即可。程式碼如下所示：
 
 ```python
 from django.shortcuts import render, render_to_response, get_object_or_404
@@ -171,9 +171,9 @@ def index(request):
     })
 ```
 
-Django的render_to_response方法可以根据一个给定的上下文字典渲染一个给定的目标，并返回渲染后的HttpResponse。即将相应的值，如这里的Blogpost.objects.all()[:5]，填入相应的index.html中，再返回最后的结果。
+Django的render_to_response方法可以根據一個給定的上下文字典渲染一個給定的目標，並返回渲染後的HttpResponse。即將相應的值，如這裡的Blogpost.objects.all()[:5]，填入相應的index.html中，再返回最後的結果。
 
-首先，我们需要创建一个templates文件夹，然后在setting.py的TEMPLATES字段将该目录指定为默认目录
+首先，我們需要建立一個templates資料夾，然後在setting.py的TEMPLATES欄位將該目錄指定為預設目錄
 ```python
  TEMPLATES = [
       {
@@ -191,7 +191,7 @@ Django的render_to_response方法可以根据一个给定的上下文字典渲�
      },
  ]
 ```
-另外，在templates目录下我们需要新建base.html, index.html和blogpost_detail.html三个模板。
+另外，在templates目錄下我們需要新建base.html, index.html和blogpost_detail.html三個模板。
 
 ```html
 {% load staticfiles %}
@@ -211,20 +211,20 @@ Django的render_to_response方法可以根据一个给定的上下文字典渲�
         <div class="navbar-header">
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                     data-target=".bs-navbar-collapse">
-                <span class="sr-only">切换视图</span>
+                <span class="sr-only">切換檢視</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Growth博客</a>
+            <a href="/" class="navbar-brand">Growth部落格</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/pages/about/">关于我</a>
+                    <a href="/pages/about/">關於我</a>
                 </li>
                 <li>
-                    <a href="/pages/resume/">简历</a>
+                    <a href="/pages/resume/">簡歷</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -269,7 +269,7 @@ Django的render_to_response方法可以根据一个给定的上下文字典渲�
 </html>
 ```
 
-在我们的index.html中，我们就可以拿到前五篇博客。我们只需要遍历出posts，拿出每个post相应的值，就可以完成列表页。
+在我們的index.html中，我們就可以拿到前五篇部落格。我們只需要遍歷出posts，拿出每個post相應的值，就可以完成列表頁。
 
 ```html
 {% extends 'base.html' %}
@@ -285,11 +285,11 @@ Django的render_to_response方法可以根据一个给定的上下文字典渲�
 {% endblock %}
 ```
 
-在上面的模板里，我们还取出了博客的链接用于跳转到详情页。
+在上面的模板裡，我們還取出了部落格的連結用於跳轉到詳情頁。
 
-### 创建博客详情页
+### 建立部落格詳情頁
 
-依据上面拿到的slug，我们就可以创建对应的详情页的view，代码如下所示：
+依據上面拿到的slug，我們就可以建立對應的詳情頁的view，程式碼如下所示：
 
 ```python
 def view_post(request, slug):
@@ -298,7 +298,7 @@ def view_post(request, slug):
     })
 ```
 
-这里的``get_object_or_404``将会根据slug来获取相应的博客，如果取不出相应的博客就会返回404。因此，我们的详情页和上面的列表页也是类似的。
+這裡的``get_object_or_404``將會根據slug來獲取相應的部落格，如果取不出相應的部落格就會返回404。因此，我們的詳情頁和上面的列表頁也是類似的。
 
 ```html
 {% extends 'base.html' %}
@@ -312,18 +312,18 @@ def view_post(request, slug):
 {% endblock %}
 ```
 
-随后，我们就可以再提交一次代码了。
+隨後，我們就可以再提交一次程式碼了。
 
-测试
+測試
 ---
 
-TDD虽然是一个非常好的实践，但是那是对于那些已经习惯写测试的人来说。如果你写测试的经历非常少，那么我们就可以从写测试开始。
+TDD雖然是一個非常好的實踐，但是那是對於那些已經習慣寫測試的人來說。如果你寫測試的經歷非常少，那麼我們就可以從寫測試開始。
 
-在这里我们使用的是Django这个第三方框架来完成我们的工作，所以我们并不对这个框架的功能进行测试。虽然有些时候正是因为这些第三方框架的问题而导致的Bug，但是我们仅仅只是使用一些基础的功能。这些基础的功能也已经在他们的框架中测试过了。
+在這裡我們使用的是Django這個第三方框架來完成我們的工作，所以我們並不對這個框架的功能進行測試。雖然有些時候正是因為這些第三方框架的問題而導致的Bug，但是我們僅僅只是使用一些基礎的功能。這些基礎的功能也已經在他們的框架中測試過了。
 
-### 测试首页
+### 測試首頁
 
-先来做一个简单的测试，即测试我们访问首页的时候，调用的函数是上面的index函数
+先來做一個簡單的測試，即測試我們訪問首頁的時候，呼叫的函數是上面的index函數
 
 ```python
 from django.core.urlresolvers import resolve
@@ -339,13 +339,13 @@ class HomePageTest(TestCase):
         self.assertEqual(found.func, index)
 ```
 
-但是这样的测试看上去没有多大意义，不过它可以保证我们的route可以和我们的URL对应上。在编写完测试后，我们就可以命令提示行中运行:
+但是這樣的測試看上去沒有多大意義，不過它可以保證我們的route可以和我們的URL對應上。在編寫完測試後，我們就可以命令提示行中執行:
 
 ```bash
 python manage.py test
 ```
 
-来查看测试的结果：
+來檢視測試的結果：
 
 ```
 Creating test database for alias 'default'...
@@ -359,7 +359,7 @@ Destroying test database for alias 'default'...
 (growth-django)
 ```
 
-运行通过，现在我们可以进行下一个测试了——我们可以测试页面的标题是不是我们想要的结果：
+執行通過，現在我們可以進行下一個測試了——我們可以測試頁面的標題是不是我們想要的結果：
 
 ```python
     def test_home_page_returns_correct_html(self):
@@ -368,11 +368,11 @@ Destroying test database for alias 'default'...
         self.assertIn(b'<title>Welcome to my blog</title>', response.content)
 ```
 
-这里我们需要去请求相应的页面来获取页面的标题，并用assertIn方法来断言返回的首页的html中含有``<title>Welcome to my blog</title>``。
+這裡我們需要去請求相應的頁面來獲取頁面的標題，並用assertIn方法來斷言返回的首頁的html中含有``<title>Welcome to my blog</title>``。
 
-### 测试详情页
+### 測試詳情頁
 
-同样的我们也可以用测试是否调用某个函数的方法，来看博客的详情页的route是否正确？
+同樣的我們也可以用測試是否呼叫某個函數的方法，來看部落格的詳情頁的route是否正確？
 
 ```python
 class BlogpostTest(TestCase):
@@ -381,7 +381,7 @@ class BlogpostTest(TestCase):
         self.assertEqual(found.func, view_post)
 ```
 
-与上面测试首页不一样的是，在我们的Blogpost测试中，我们需要创建数据，以确保这个流程是没有问题的。因此我们需要用``Blogpost.objects.create``方法来创建一个数据，然后访问相应的页面来看是否正确。
+與上面測試首頁不一樣的是，在我們的Blogpost測試中，我們需要建立資料，以確保這個流程是沒有問題的。因此我們需要用``Blogpost.objects.create``方法來建立一個資料，然後訪問相應的頁面來看是否正確。
 
 ```python
 def test_blogpost_create_with_view(self):
@@ -391,15 +391,15 @@ def test_blogpost_create_with_view(self):
     self.assertIn(b'This is a blog', response.content)
 ```
 
-或许你会疑惑这个数据会不会被注入到数据库中，请看运行测试时返回的结果的第一句：
+或許你會疑惑這個資料會不會被注入到資料庫中，請看執行測試時返回的結果的第一句：
 
 ```
 Creating test database for alias 'default'...
 ```
 
-Django将会创建一个数据库用于测试。
+Django將會建立一個資料庫用於測試。
 
-同理，我们也可以为首页添加一个相似的测试：
+同理，我們也可以為首頁新增一個相似的測試：
 
 ```python
 def test_blogpost_create_with_show_in_homepage(self):
@@ -409,4 +409,4 @@ def test_blogpost_create_with_show_in_homepage(self):
     self.assertIn(b'This is a blog', response.content)
 ```
 
-我们用同样的方法创建了一篇博客，然后在首页测试返回的内容中是否含有``This is a blog``。
+我們用同樣的方法建立了一篇部落格，然後在首頁測試返回的內容中是否含有``This is a blog``。

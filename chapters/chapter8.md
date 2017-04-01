@@ -1,18 +1,18 @@
-移动单页面应用
+移動單頁面應用
 ===
 
-为了实现在移动设备上的访问，这里就以riot.js为例做一个简单的Demo。不过，首先我们需要在后台判断用户是来自于某种设备，再对其进行特殊的处理。
+為了實現在移動裝置上的訪問，這裡就以riot.js為例做一個簡單的Demo。不過，首先我們需要在後臺判斷使用者是來自於某種裝置，再對其進行特殊的處理。
 
-移动设备处理
+移動裝置處理
 ---
 
-幸运的是我们又找到了一个库名为``django_mobile``，可以根据用户的User-Agent来区别设备，并为其分配一个移动设备专用的模板。因此，我们需要安装这个库：
+幸運的是我們又找到了一個庫名為``django_mobile``，可以根據使用者的User-Agent來區別裝置，併為其分配一個移動裝置專用的模板。因此，我們需要安裝這個庫：
 
 ```
 pip install django_mobile
 ```
 
-并将``'django_mobile.middleware.MobileDetectionMiddleware'``和``'django_mobile.middleware.SetFlavourMiddleware'``添加MIDDLEWARE_CLASSES中：
+並將``'django_mobile.middleware.MobileDetectionMiddleware'``和``'django_mobile.middleware.SetFlavourMiddleware'``新增MIDDLEWARE_CLASSES中：
 
 ```
 MIDDLEWARE_CLASSES = (
@@ -30,7 +30,7 @@ MIDDLEWARE_CLASSES = (
 )
 ```
 
-修改Template配置，添加对应的loader和context_processor，如下所示的内容即是修改完后的结果：
+修改Template配置，新增對應的loader和context_processor，如下所示的內容即是修改完後的結果：
 
 ```
 TEMPLATES = [
@@ -53,38 +53,38 @@ TEMPLATES = [
 
 # dirty fixed for https://github.com/gregmuellegger/django-mobile/issues/72
 TEMPLATE_LOADERS = TEMPLATES[0]['OPTIONS']['loaders']
-```      
+```
 
-我们在LOADERS中添加了``'django_mobile.loader.Loader'``，在``context_processors``中添加了``django_mobile.context_processors.flavour``。
+我們在LOADERS中新增了``'django_mobile.loader.Loader'``，在``context_processors``中新增了``django_mobile.context_processors.flavour``。
 
-然后在template目录中创建``template/mobile/index.html ``文件，即可。
+然後在template目錄中建立``template/mobile/index.html ``檔案，即可。
 
 
-前后端分离
+前後端分離
 ---
 
-为了方便我们讲述模块化，也不改变系统原有架构，我决定挖个大坑使用Riot.js来展示这一部分的内容。
+為了方便我們講述模組化，也不改變系統原有架構，我決定挖個大坑使用Riot.js來展示這一部分的內容。
 
 ### Riot.js
 
-Riot拥有创建现代客户端应用的所有必需的成分:
+Riot擁有建立現代客戶端應用的所有必需的成分:
 
- - “响应式” 视图层用来创建用户界面
- - 用来在各独立模块之间进行通信的事件库
- - 用来管理URL和浏览器回退按钮的路由器（Router）
+ - “響應式” 檢視層用來建立使用者介面
+ - 用來在各獨立模組之間進行通訊的事件庫
+ - 用來管理URL和瀏覽器回退按鈕的路由器（Router）
 
 等等。
 
-接着让我们引入riot.js这个库，顺便也引入rxjs吧:
+接著讓我們引入riot.js這個庫，順便也引入rxjs吧:
 
 ```
 <script src="{% static 'js/mobile/riot+compiler.min.js' %}"></script>
 <script src="{% static 'js/mobile/rx.core.min.js' %}"></script>
 ```
 
-###ReactiveJS构建服务
+###ReactiveJS構建服務
 
-由于我们所要做的服务比较简单，并且我们也更愿意使用Promise来加载API服务，因此我们引入了这个库来加速我们的开发。下面是我们用于获取博客API的代码：
+由於我們所要做的服務比較簡單，並且我們也更願意使用Promise來載入API服務，因此我們引入了這個庫來加速我們的開發。下面是我們用於獲取部落格API的程式碼：
 
 ```
 var responseStream = function (blogId) {
@@ -109,13 +109,13 @@ var responseStream = function (blogId) {
 };
 ```
 
-当我们想访问特定博客的时候，我们就传博客ID进去——这时会使用``'/api/blogpost/' + blogId + '?format=json'``作为URL。接着我们创建了自己定制的事件流——使用jQuery去获取API：
+當我們想訪問特定部落格的時候，我們就傳部落格ID進去——這時會使用``'/api/blogpost/' + blogId + '?format=json'``作為URL。接著我們建立了自己定製的事件流——使用jQuery去獲取API：
 
- - 成功的时候(done)，我们将用onNext()来通知观察者
- - 失败的时候(fail)，我们就调用onError()来通知观察者
- - 不论成功或者失败，都会执行always
+ - 成功的時候(done)，我們將用onNext()來通知觀察者
+ - 失敗的時候(fail)，我們就呼叫onError()來通知觀察者
+ - 不論成功或者失敗，都會執行always
 
-在使用的时候，我们只需要调用其``subscribe``方法即可：
+在使用的時候，我們只需要呼叫其``subscribe``方法即可：
 
 ```
 responseStream().subscribe(function (response) {
@@ -123,9 +123,9 @@ responseStream().subscribe(function (response) {
 })
 ```
 
-### 创建博客列表页
+### 建立部落格列表頁
 
-现在，我们可以修改原生的博客模板，将其中的container内容变为：
+現在，我們可以修改原生的部落格模板，將其中的container內容變為：
 
 ```
 <div class="container" id="container">
@@ -133,19 +133,19 @@ responseStream().subscribe(function (response) {
 </div>
 ```
 
-接着，我们可以创建一个``blog.tag``文件，添加加载这个文件:`
+接著，我們可以建立一個``blog.tag``檔案，新增載入這個檔案:`
 
 ```
 <script src="{% static 'riot/blog.tag' %}" type="riot/tag"></script>
 ```
 
-为了调用这个tag的内容，我们需要在我们的``main.js``加上一句：
+為了呼叫這個tag的內容，我們需要在我們的``main.js``加上一句：
 
 ```javascript
 riot.mount("blog");
 ```
 
-随后我们可以在我们的tag文件中，来对blog的内容进行操作。
+隨後我們可以在我們的tag檔案中，來對blog的內容進行操作。
 
 ```html
 <blog class="row">
@@ -172,7 +172,7 @@ riot.mount("blog");
 </blog>
 ```
 
-在Riot中，变量默认是以opts的方式传递起来的，因此我们也遵循这个方式。在模板方面，我们遍历每个博客取出其中的内容：
+在Riot中，變數預設是以opts的方式傳遞起來的，因此我們也遵循這個方式。在模板方面，我們遍歷每個部落格取出其中的內容：
 
 ```
 <div class="col-sm-4" each={ opts }>
@@ -182,7 +182,7 @@ riot.mount("blog");
 </div>
 ```
 
-而博客的数据需要依赖于我们监听``mount``事件才会去获取——即我们加载了这个tag。
+而部落格的資料需要依賴於我們監聽``mount``事件才會去獲取——即我們載入了這個tag。
 
 ```
 this.on('mount', function (id) {
@@ -193,7 +193,7 @@ this.on('mount', function (id) {
 })
 ```
 
-在这个页面中，还有一个单击事件``onclick={ parent.click }``，即当我们点击某个博客的标题时执行的函数:
+在這個頁面中，還有一個單擊事件``onclick={ parent.click }``，即當我們點選某個部落格的標題時執行的函數:
 
 ```
 click(event)
@@ -202,11 +202,11 @@ click(event)
     riot.route("blog/" + event.item.id);
 }
 ```
-我们将卸载当前的tag，然后加载blogDetail的内容。
+我們將解除安裝當前的tag，然後載入blogDetail的內容。
 
-### 博客详情页
+### 部落格詳情頁
 
-在我们加载之前，我们需要先配置好blogDetail。我们仍然使用正则表达式``blogDetail/*``来获取博客的id:
+在我們載入之前，我們需要先配置好blogDetail。我們仍然使用正規表示式``blogDetail/*``來獲取部落格的id:
 
 ```
 riot.route.base('#');
@@ -218,7 +218,7 @@ riot.route('blog/*', function(id) {
 riot.route.start();
 ```
 
-然后将由相应的tag来执行：
+然後將由相應的tag來執行：
 
 ```
 <blogDetail class="row">
@@ -239,13 +239,13 @@ riot.route.start();
     </script>
 </blogDetail>
 ```
-同样的，我们也将去获取这篇博客的内容，然后显示。
+同樣的，我們也將去獲取這篇部落格的內容，然後顯示。
 
-### 添加导航
+### 新增導航
 
-在上面的例子里，我们少了一部分很重要的内容就是在页面间跳转，现在就让我们来创建``navbar.tag``吧。
+在上面的例子裡，我們少了一部分很重要的內容就是在頁面間跳轉，現在就讓我們來建立``navbar.tag``吧。
 
-首先，我们需要重新规则一下route，在系统初始化的时候我们将使用的路由是blog，在进入详情页的时候，我们用blog/*。
+首先，我們需要重新規則一下route，在系統初始化的時候我們將使用的路由是blog，在進入詳情頁的時候，我們用blog/*。
 
 ```javascript
 riot.route.base('#');
@@ -263,7 +263,7 @@ riot.route.start();
 riot.route("blog");
 ```
 
-然后将我们的navbar标签放在``blog``和``blogDetail``中，如下所示：
+然後將我們的navbar標籤放在``blog``和``blogDetail``中，如下所示：
 
 ```
 <blogDetail class="row">
@@ -273,9 +273,9 @@ riot.route("blog");
         { opts.body }
         { opts.posted } - By { opts.author }
     </div>
-</blogDetail>      
+</blogDetail>
 
-当我们到了博客详情页，我们将把标题作为参数传给title。接着，我们在navbar中我们就可以创造一个breadcrumb导航了:
+當我們到了部落格詳情頁，我們將把標題作為參數傳給title。接著，我們在navbar中我們就可以創造一個breadcrumb導航了:
 
 ```
 <navbar>
@@ -286,7 +286,7 @@ riot.route("blog");
 </navbar>
 ```
 
-最后可以在我们的blogDetail标签中添加一个点击事件来跳转到首页：
+最後可以在我們的blogDetail標籤中新增一個點選事件來跳轉到首頁：
 
 ```
 clickTitle(event) {
@@ -294,4 +294,3 @@ clickTitle(event) {
     riot.route("blog");
 }
 ```
-        

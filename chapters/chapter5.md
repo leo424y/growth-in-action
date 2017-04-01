@@ -1,22 +1,22 @@
-样式与UI美化
+樣式與UI美化
 ===
 
-我们的前端样式实在是太丑了，让我们想办法来美化一下它们吧——这时候我们就需要一个前端框架来帮助我们做这件事。这里的前端框架并不是指那种MV*框架，而是UI框架。
+我們的前端樣式實在是太醜了，讓我們想辦法來美化一下它們吧——這時候我們就需要一個前端框架來幫助我們做這件事。這裡的前端框架並不是指那種MV*框架，而是UI框架。
 
-响应式设计
+響應式設計
 ---
 
-考虑到易学程度，以其响应式设计的问题，我们决定用Bootstrap来作为这里的前端框架。Bootstrap是Twitter推出的一个用于前端开发的开源工具包，似乎也是当前“最受欢迎”的前端框架。它提供了全面、美观的文档。你能在这里找到关于 HTML 元素、HTML 和 CSS 组件、jQuery 插件方面的所有详细文档。并且我们能在 Bootstrap 的帮助下通过同一份代码快速、有效适配手机、平板、PC 设备。
+考慮到易學程度，以其響應式設計的問題，我們決定用Bootstrap來作為這裡的前端框架。Bootstrap是Twitter推出的一個用於前端開發的開源工具包，似乎也是當前“最受歡迎”的前端框架。它提供了全面、美觀的文件。你能在這裡找到關於 HTML 元素、HTML 和 CSS 元件、jQuery 外掛方面的所有詳細文件。並且我們能在 Bootstrap 的幫助下通過同一份程式碼快速、有效適配手機、平板、PC 裝置。
 
-它是一个支持响应式设计的框架，即页面的设计与开发应当根据用户行为以及设备环境(系统平台、屏幕尺寸、屏幕定向等)进行相应的响应和调整。如下图所示：
+它是一個支援響應式設計的框架，即頁面的設計與開發應當根據使用者行為以及裝置環境(系統平臺、螢幕尺寸、螢幕定向等)進行相應的響應和調整。如下圖所示：
 
-![响应式设计](http://growth-in-action.phodal.com/images/responsive-design.png)
+![響應式設計](http://growth-in-action.phodal.com/images/responsive-design.png)
 
-我们在不同的设计上看到的是不同的布局，这会依据我们的设备大小做出调整——使用媒体查询(media queries)实现。
+我們在不同的設計上看到的是不同的佈局，這會依據我們的裝置大小做出調整——使用媒體查詢(media queries)實現。
 
 ### 引入前端框架
 
-下好Bootstrap，将里面的内容复制到``static/``目录，如下所示：
+下好Bootstrap，將裡面的內容複製到``static/``目錄，如下所示：
 
 ```
 .
@@ -40,9 +40,9 @@
     ├── bootstrap.js
     ├── bootstrap.min.js
     └── npm.js
-```    
+```
 
-它包含了JavaScript、CSS还有字体，需要注意的一点是bootstrap依赖于jquery。因此，我们需要下载jquery并放到这个目录里。然后在我们的head里引入这些css
+它包含了JavaScript、CSS還有字型，需要注意的一點是bootstrap依賴於jquery。因此，我們需要下載jquery並放到這個目錄裡。然後在我們的head裡引入這些css
 
 ```
 <head>
@@ -51,7 +51,7 @@
 </head>
 ```
 
-在我们的body结尾的地方：
+在我們的body結尾的地方：
 
 ```
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -60,16 +60,16 @@
 </html>
 ```
 
-在这里，将Script放在body的尾部有利于用户打开页面的速度。而对于一些纯前端的框架来说，它们就需要放在页面开始的地方。
+在這裡，將Script放在body的尾部有利於使用者開啟頁面的速度。而對於一些純前端的框架來說，它們就需要放在頁面開始的地方。
 
-页面美化
+頁面美化
 ---
 
-现在，我们就可以创建一个导航了。
+現在，我們就可以建立一個導航了。
 
-### 添加导航
+### 新增導航
 
-根据Bootstrap的官方文档的Demo，我们可以创建对应的导航。
+根據Bootstrap的官方文件的Demo，我們可以建立對應的導航。
 
 ```html
 <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
@@ -77,20 +77,20 @@
         <div class="navbar-header">
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                     data-target=".bs-navbar-collapse">
-                <span class="sr-only">切换视图</span>
+                <span class="sr-only">切換檢視</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Growth博客</a>
+            <a href="/" class="navbar-brand">Growth部落格</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/pages/about/">关于我</a>
+                    <a href="/pages/about/">關於我</a>
                 </li>
                 <li>
-                    <a href="/pages/resume/">简历</a>
+                    <a href="/pages/resume/">簡歷</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -102,21 +102,21 @@
 </header>
 ```
 
-它在桌面下的效果大致如下图所示：
+它在桌面下的效果大致如下圖所示：
 
-![桌面浏览器下的Bootstrap导航](http://growth-in-action.phodal.com/images/bootstrap-nav-desktop.png)
+![桌面瀏覽器下的Bootstrap導航](http://growth-in-action.phodal.com/images/bootstrap-nav-desktop.png)
 
-而在移动浏览器下则是这样的效果：
+而在移動瀏覽器下則是這樣的效果：
 
-![移动设备上的导航](http://growth-in-action.phodal.com/images/nav-in-mobile.png)
+![移動裝置上的導航](http://growth-in-action.phodal.com/images/nav-in-mobile.png)
 
-当我们点击右上角的菜单按钮时，会出现我们的菜单
+當我們點選右上角的選單按鈕時，會出現我們的選單
 
-![点击导航后的结果](http://growth-in-action.phodal.com/images/nav-in-mobile-with-click.png)
+![點選導航後的結果](http://growth-in-action.phodal.com/images/nav-in-mobile-with-click.png)
 
-### 添加标语
+### 新增標語
 
-接着，我们可以快速的创建一个标语：
+接著，我們可以快速的建立一個標語：
 
 ```
 <main class="bs-docs-masthead" id="content" role="main">
@@ -129,23 +129,23 @@
 </main>
 ```
 
-这里的代码都比较简单，我想也不需要太多的解释。
+這裡的程式碼都比較簡單，我想也不需要太多的解釋。
 
-### 优化列表
+### 優化列表
 
-接着，我们可以简单的对首页的博客列表做一个优化，方法比较简单：
+接著，我們可以簡單的對首頁的部落格列表做一個優化，方法比較簡單：
 
- - 为博客列表添加一个``row``的class，表示它可以滚动
- - 在每一篇博客里添加``col-sm-4``的class，在不同的大小下会有不同的布局
+ - 為部落格列表新增一個``row``的class，表示它可以滾動
+ - 在每一篇部落格裡新增``col-sm-4``的class，在不同的大小下會有不同的佈局
 
-代码如下所示：
+程式碼如下所示：
 
 ```
 {% extends 'base.html' %}
 {% block title %}Welcome to my blog{% endblock %}
 
 {% block content %}
-<h2>博客</h2>
+<h2>部落格</h2>
 <div class="row">
     {% if posts %}
     {% for post in posts %}
@@ -162,15 +162,15 @@
 {% endblock %}
 ```
 
-它在桌面和自动设备上的效果如下图所示：
+它在桌面和自動裝置上的效果如下圖所示：
 
-![桌面设备效果](http://growth-in-action.phodal.com/images/desktop-blogposts.png)
+![桌面裝置效果](http://growth-in-action.phodal.com/images/desktop-blogposts.png)
 
-![移动设备效果](http://growth-in-action.phodal.com/images/mobile-blogposts.png)
+![移動裝置效果](http://growth-in-action.phodal.com/images/mobile-blogposts.png)
 
-### 添加footer
+### 新增footer
 
-最后，我们可以在页面的最下方添加一个footer，来做一些版权声明：
+最後，我們可以在頁面的最下方新增一個footer，來做一些版權聲明：
 
 ```html
 <footer class="footer">
@@ -180,7 +180,7 @@
 </footer>
 ```
 
-它拥有一些简单的样式，来将footer固定在页面的最下方：
+它擁有一些簡單的樣式，來將footer固定在頁面的最下方：
 
 ```css
 .footer {

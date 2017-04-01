@@ -1,20 +1,20 @@
-创建移动应用
+建立移動應用
 ===
 
-依照国际惯例，我们还将用Ionic 2继续创建hello,world。
+依照國際慣例，我們還將用Ionic 2繼續建立hello,world。
 
 hello,world
 ---
 
-开始之前我们需要先安装Ionic的命令行工具，后面我们需要用这个工具来创建工程。
+開始之前我們需要先安裝Ionic的命令列工具，後面我們需要用這個工具來建立工程。
 
 ```bash
 npm install -g ionic@beta
 ```
 
-如果没有意外，我们将安装成功，然后可以使用``ionic``命令:
+如果沒有意外，我們將安裝成功，然後可以使用``ionic``命令:
 
-它自带了一系列的工具来加速我们的开发，这些工具可以在后面的章节中学习到。
+它自帶了一系列的工具來加速我們的開發，這些工具可以在後面的章節中學習到。
 
 ```
 Available tasks: (use --help or -h for more info)
@@ -56,14 +56,14 @@ Available tasks: (use --help or -h for more info)
    generate  .......  Generate pages and components
 ```
 
-现在，我们就可以用第一个命令``start``来创建我们的项目。
+現在，我們就可以用第一個命令``start``來建立我們的項目。
 
 
 ```bash
 ionic start growth-blog-app --v2
 ```
 
-在这个过程中，它将下载Ionic 2项目的基础项目，并执行安装命令。
+在這個過程中，它將下載Ionic 2項目的基礎項目，並執行安裝命令。
 
 ```
 Creating Ionic app in folder /Users/fdhuang/repractise/growth-blog-app based on tabs project
@@ -74,7 +74,7 @@ Downloading: https://github.com/driftyco/ionic2-starter-tabs/archive/master.zip
 Installing npm packages...
 ```
 
-然后到``growth-blog-app``目录，我们会看到类似于下面的内容：
+然後到``growth-blog-app``目錄，我們會看到類似於下面的內容：
 
 ```
 .
@@ -115,39 +115,39 @@ Installing npm packages...
     └── index.html
 ```
 
-在这2.0版本的Ionic，页面开始以目录来划分，一个页面路径下有自己的``html``、``js``、``scss``。
+在這2.0版本的Ionic，頁面開始以目錄來劃分，一個頁面路徑下有自己的``html``、``js``、``scss``。
 
- - ``tabs``负责这些页面间跳转
- - ``theme``则负责系统相应样式的修改
- - ``config.xml``带有相应的Cordova配置
- - ``hooks``则对系统添加和编译时进行一些预处理
- - ``ionic.config.json``则是ionic的一些相关配置选项
- - ``package.json``则存放相应的node.js的包的依赖
- - ``www``目录用于存放出最后构建出来的内容，以及一些静态资源
+ - ``tabs``負責這些頁面間跳轉
+ - ``theme``則負責系統相應樣式的修改
+ - ``config.xml``帶有相應的Cordova配置
+ - ``hooks``則對系統新增和編譯時進行一些預處理
+ - ``ionic.config.json``則是ionic的一些相關配置選項
+ - ``package.json``則存放相應的node.js的包的依賴
+ - ``www``目錄用於存放出最後構建出來的內容，以及一些靜態資源
 
-由于Angular 2.0使用的是Typescript，所以在这里我们将用typescript进行展示，因此我们的执行命令变成~~：
+由於Angular 2.0使用的是Typescript，所以在這裡我們將用typescript進行展示，因此我們的執行命令變成~~：
 
 ```
 ionic start growth-blog-app --v2 --ts
 ```
 
-``--ts``表示使用的是``typescript``来创建项目，安装的过程是一样的，不一样的是后面写的代码。
+``--ts``表示使用的是``typescript``來建立項目，安裝的過程是一樣的，不一樣的是後面寫的程式碼。
 
-执行相应的启动serve命令，我们就可以开始我们的项目了：
+執行相應的啟動serve命令，我們就可以開始我們的項目了：
 
 ```bash
 ionic serve
 ```
 
-这时候Ionic将做一些额外的事，才能启动我们的服务，如：
+這時候Ionic將做一些額外的事，才能啟動我們的服務，如：
 
- - 删除``www/build``目录下的文件
- - 编译SASS到CSS
- - 编译文件到HTML
- - 编译字体
+ - 刪除``www/build``目錄下的檔案
+ - 編譯SASS到CSS
+ - 編譯檔案到HTML
+ - 編譯字型
  - 等等
 
-最后，它将启动一个Web服务，URL为[http://localhost:8100](http://localhost:8100)
+最後，它將啟動一個Web服務，URL為[http://localhost:8100](http://localhost:8100)
 
 ```bash
   Running 'serve:before' gulp task before serve
@@ -179,25 +179,25 @@ ionic serve
   ionic $
 ```
 
-接着，就可以打开相应的Web页面，如下图所示：
+接著，就可以開啟相應的Web頁面，如下圖所示：
 
-![Ionic Web预览界面](http://growth-in-action.phodal.com/images/ionic-web-view.jpg)
+![Ionic Web預覽介面](http://growth-in-action.phodal.com/images/ionic-web-view.jpg)
 
-### 构建应用
+### 構建應用
 
-由于Ionic是基于Cordova的，我们需要安装Cordova业完成后续的工作。
+由於Ionic是基於Cordova的，我們需要安裝Cordova業完成後續的工作。
 
 ```bash
 sudo npm install -g cordova
 ```
 
-为了构建不同的平台的应用，我们就需要添加不同的平台，如:
+為了構建不同的平臺的應用，我們就需要新增不同的平臺，如:
 
 ```bash
 ionic platform add android
 ```
 
-上面的命令可以为项目添加Android平台的支持，过程如下面的日志所示：
+上面的命令可以為項目新增Android平臺的支援，過程如下面的日誌所示：
 
 ```
 Adding android project...
@@ -211,27 +211,27 @@ Android project created with cordova-android@5.1.1
 Running command: /Users/fdhuang/repractise/growth-blog-app/hooks/after_prepare/010_add_platform_class.js /Users/fdhuang/repractise/growth-blog-app
 ```
 
-最后，再执行``run``就可以在对应的平台上运行，如:
+最後，再執行``run``就可以在對應的平臺上執行，如:
 
 ```
 ionic run android
 ```
 
-博客列表页
+部落格列表頁
 ---
 
-现在，让我们来结合我们的博客APP，做一个相应的展示博客的APP。在这一步我们所要做的事情比较简单：
+現在，讓我們來結合我們的部落格APP，做一個相應的展示部落格的APP。在這一步我們所要做的事情比較簡單：
 
- - 获取博客列表API
- - 渲染博客列表
+ - 獲取部落格列表API
+ - 渲染部落格列表
 
-### 列表页
+### 列表頁
 
-在上一个章节里我们已经有了一个博客详细的API，我们只需要获取这个API并显示即可。不过，让我们简单地熟悉一下显示数据的这部分内容：
+在上一個章節裡我們已經有了一個部落格詳細的API，我們只需要獲取這個API並顯示即可。不過，讓我們簡單地熟悉一下顯示資料的這部分內容：
 
 ```html
 <ion-navbar *navbar>
-  <ion-title>博客</ion-title>
+  <ion-title>部落格</ion-title>
 </ion-navbar>
 
 <ion-content class="blog-list">
@@ -247,13 +247,13 @@ ionic run android
 </ion-content>
 ```
 
-上面是一个基本的详情页的模板，其中定义了一系列的Ionic自定义标签，如：
+上面是一個基本的詳情頁的模板，其中定義了一系列的Ionic自定義標籤，如：
 
- - <ion-navbar> 显示在导航栏中的内容
- - <ion-content> 显示APP的内容
- - <ion-item> 即将博客展示成每一项
+ - <ion-navbar> 顯示在導航欄中的內容
+ - <ion-content> 顯示APP的內容
+ - <ion-item> 即將部落格展示成每一項
 
-而从上面的内容中，我们可以看到：我们在ngFor中遍历了blogposts，然后显示每篇文章的标题和内容。对应的代码也就比较简单了:
+而從上面的內容中，我們可以看到：我們在ngFor中遍歷了blogposts，然後顯示每篇文章的標題和內容。對應的程式碼也就比較簡單了:
 
 ```javascript
 import {Page} from 'ionic-angular';
@@ -265,13 +265,13 @@ import {Page} from 'ionic-angular';
 export class BlogList {
   public blogposts;
 
-  constructor() {
+  function Object() { [native code] }() {
 
   }
 }
 ```
 
-但是我们要去哪里获取博客的值呢，我们先看看改造后的BlogList的Controller：
+但是我們要去哪裡獲取部落格的值呢，我們先看看改造後的BlogList的Controller：
 
 
 ```javascript
@@ -286,7 +286,7 @@ export class BlogList {
   private blogListService;
   public blogposts;
 
-  constructor(blogpostServices:BlogpostServices) {
+  function Object() { [native code] }(blogpostServices:BlogpostServices) {
     this.blogListService = blogpostServices;
     this.initService();
   }
@@ -302,7 +302,7 @@ export class BlogList {
 
 ```
 
-我们初始化了一个blogListService，然后我们调用这个服务去获取博客列表。
+我們初始化了一個blogListService，然後我們呼叫這個服務去獲取部落格列表。
 
 ```javascript
     this.blogListService.getBlogpostLists().subscribe(
@@ -310,11 +310,11 @@ export class BlogList {
       err => console.log('Error: ' + JSON.stringify(err)),
       () => console.log('Get Blogpost')
     );
-```    
+```
 
-当我们获取到数据的时候，我们就解析这个数据，并将这个值赋予blogposts。如果这其中遇到什么错误，就会显示相应的错误信息。
+當我們獲取到資料的時候，我們就解析這個資料，並將這個值賦予blogposts。如果這其中遇到什麼錯誤，就會顯示相應的錯誤資訊。
 
-现在，让我们创建一个获取博客的服务：
+現在，讓我們建立一個獲取部落格的服務：
 
 ```
 import {Inject} from 'angular2/core';
@@ -324,7 +324,7 @@ import 'rxjs/add/operator/map';
 export class BlogpostServices {
   private http;
 
-  constructor(@Inject(Http) http:Http) {
+  function Object() { [native code] }(@Inject(Http) http:Http) {
     this.http = http
   }
 
@@ -335,36 +335,36 @@ export class BlogpostServices {
 }
 ```
 
-我们将通过这个API来获取相关的数据，并将数据返回到BlogList类中。接着将更新blogposts的值，并重新渲染页面。
+我們將通過這個API來獲取相關的資料，並將資料返回到BlogList類中。接著將更新blogposts的值，並重新渲染頁面。
 
-### 详情页
+### 詳情頁
 
-在我们的博客API中，每个内容都对应有一个id，如下所示:
+在我們的部落格API中，每個內容都對應有一個id，如下所示:
 
 ```
 {
-    "title": "这是一个标题",
+    "title": "這是一個標題",
     "author": "Phodal2",
-    "body": "这是一个测试的内容",
+    "body": "這是一個測試的內容",
     "slug": "this-is-a-test",
     "id": 3
 }
 ```
 
-我们只需要访问这个id，就可以获取这个结果，如：[http://localhost:8000/api/blogpost/3/](http://localhost:8000/api/blogpost/3/)
+我們只需要訪問這個id，就可以獲取這個結果，如：[http://localhost:8000/api/blogpost/3/](http://localhost:8000/api/blogpost/3/)
 
-因此，我们所需要做的就是：
+因此，我們所需要做的就是：
 
- - 在渲染博客列表的时候，为每一项赋予一个ID
- - 点击某一项时，将跳转到详情页，并去获取相应的API的数据，并渲染到页面上。
+ - 在渲染部落格列表的時候，為每一項賦予一個ID
+ - 點選某一項時，將跳轉到詳情頁，並去獲取相應的API的資料，並渲染到頁面上。
 
-好了，我们可以用ionic的生成命令来创建博客详情页。    
+好了，我們可以用ionic的生成命令來建立部落格詳情頁。
 
 ```bash
 ionic g page blog-detail --ts
 ```
 
-它将在app/pages目录下，生成下面的内容：
+它將在app/pages目錄下，生成下面的內容：
 
 ```bash
 app/pages/blog-detail/
@@ -373,7 +373,7 @@ app/pages/blog-detail/
 └── blog-detail.scss
 ```
 
-我们可以遵循之前添加Django App的习惯，先添加Router。因此我们可以在``app.ts``添加新的Route:
+我們可以遵循之前新增Django App的習慣，先新增Router。因此我們可以在``app.ts``新增新的Route:
 
 ```
 const ROUTES = [
@@ -382,13 +382,13 @@ const ROUTES = [
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
-  config: {} 
+  config: {}
 })
 @RouteConfig(ROUTES)
 export class MyApp {
   rootPage:any = TabsPage;
 
-  constructor(platform:Platform) {
+  function Object() { [native code] }(platform:Platform) {
     this.rootPage = TabsPage;
     this.initializeApp(platform)
   }
@@ -402,9 +402,9 @@ export class MyApp {
 }
 ```
 
-我们用RouteConfig来关联我们的URL和App Component。
+我們用RouteConfig來關聯我們的URL和App Component。
 
-同上面的博客列表页面一样，我们也可以直接添加我们的API服务。有所区别的是，我们需要依据id去获取我们的博客内容。
+同上面的部落格列表頁面一樣，我們也可以直接新增我們的API服務。有所區別的是，我們需要依據id去獲取我們的部落格內容。
 
 ```javascript
 
@@ -412,9 +412,9 @@ export class MyApp {
     var url = 'http://localhost:8000/api/blogpost/' + id + '?format=json';
     return this.http.get(url).map(res => res);
   }
-```  
+```
 
-和之前的博客列表一样，我们需要几乎一样的方法来获取数据：
+和之前的部落格列表一樣，我們需要幾乎一樣的方法來獲取資料：
 
 ```javascript
 import {Page, NavController, NavParams} from 'ionic-angular';
@@ -429,7 +429,7 @@ export class BlogDetailPage {
   private blogServices;
   private blogpost;
 
-  constructor(public nav:NavController, navParams:NavParams, blogServices:BlogpostServices) {
+  function Object() { [native code] }(public nav:NavController, navParams:NavParams, blogServices:BlogpostServices) {
     this.nav = nav;
     this.navParams = navParams;
     this.blogServices = blogServices;
@@ -451,15 +451,15 @@ export class BlogDetailPage {
 }
 ```
 
-现在我们几乎已经完成了博客详情页的工作，我们可以直接通过URL来访问博客详情页：[http://localhost:8100/#/app/blog/1](http://localhost:8100/#/app/blog/1)。结果如下图所示：
+現在我們幾乎已經完成了部落格詳情頁的工作，我們可以直接通過URL來訪問部落格詳情頁：[http://localhost:8100/#/app/blog/1](http://localhost:8100/#/app/blog/1)。結果如下圖所示：
 
-![访问博客详情页](http://growth-in-action.phodal.com/images/blog-detail-page.png)
+![訪問部落格詳情頁](http://growth-in-action.phodal.com/images/blog-detail-page.png)
 
-不过，这时候我们的列表页并没有和详情页关联到一起。我们还需要做一些额外的工作：
+不過，這時候我們的列表頁並沒有和詳情頁關聯到一起。我們還需要做一些額外的工作：
 
- - 在列表页的每一项中添加对点击事件的处理
+ - 在列表頁的每一項中新增對點選事件的處理
 
-在我们的模板页里ion-item里添加一个click事件，这个事件将调用navigate函数，并把博客id传到这个函数里。
+在我們的模板頁裡ion-item裡新增一個click事件，這個事件將呼叫navigate函數，並把部落格id傳到這個函數裡。
 
 ```html
 <ion-item *ngFor="#blogpost of blogposts" (click)="navigate(blogpost.id)">
@@ -473,17 +473,17 @@ export class BlogDetailPage {
 </ion-item>
 ```
 
-随后在我们的博客详情页的初始化里，我们要初始化一个NavController:
+隨後在我們的部落格詳情頁的初始化裡，我們要初始化一個NavController:
 
 ```javscript
-constructor(nav: NavController, blogpostServices:BlogpostServices) {
+function Object() { [native code] }(nav: NavController, blogpostServices:BlogpostServices) {
     this.blogListService = blogpostServices;
     this.nav = nav;
     this.initService();
   }
 ```
 
-接着，在navigate里我们只需要将BlogDetailPage页面及参数push给navController，并交由它来渲染页面。
+接著，在navigate裡我們只需要將BlogDetailPage頁面及參數push給navController，並交由它來渲染頁面。
 
 ```javascript
 navigate(id){
@@ -491,24 +491,24 @@ navigate(id){
     id: id
   });
 }
-```  
+```
 
-现在，我们可以试试从首页跳转到这个博客详情页。
+現在，我們可以試試從首頁跳轉到這個部落格詳情頁。
 
 Profile
 ---
 
-现在，我们要做一个更有意思的东西了。不过这个内容是为后面的创建文章提供一个技术基础。在用户授权这一部分，我们使用不同的技术来实现，如Cookies、HTTP基本认证等等。而在手机端继续Cookie来进行用户授权，不是一件简单的事。因此我们就需要JSON Web Tokens，这是一种基于token 的认证方案。
+現在，我們要做一個更有意思的東西了。不過這個內容是為後面的建立文章提供一個技術基礎。在使用者授權這一部分，我們使用不同的技術來實現，如Cookies、HTTP基本認證等等。而在手機端繼續Cookie來進行使用者授權，不是一件簡單的事。因此我們就需要JSON Web Tokens，這是一種基於token 的認證方案。
 
 ###Json Web Tokens
 
-同样，为了实现这部分功能，我们仍然可以使用其他框架来帮助我们完成基础功能。这里我们就用到了一个名为``djangorestframework-jwt``的库，从它的名字上我们就可以知道，它就是基于Django REST Framework之上的JWT实现。还是继续使用pip来安装这个库，记得把它添加到``requirements.txt``中。
+同樣，為了實現這部分功能，我們仍然可以使用其他框架來幫助我們完成基礎功能。這裡我們就用到了一個名為``djangorestframework-jwt``的庫，從它的名字上我們就可以知道，它就是基於Django REST Framework之上的JWT實現。還是繼續使用pip來安裝這個庫，記得把它新增到``requirements.txt``中。
 
 ```
 pip install djangorestframework-jwt
 ```
 
-接着，我们需要在我们的URL中配置用于获取token的API即可使用。
+接著，我們需要在我們的URL中配置用於獲取token的API即可使用。
 
 ```
 urlpatterns = patterns(
@@ -519,25 +519,25 @@ urlpatterns = patterns(
 )
 ```
 
-在我们完成了上面的步骤之后，我们可以用``curl``命令或者Chrome浏览器的Postman来做测试：
+在我們完成了上面的步驟之後，我們可以用``curl``命令或者Chrome瀏覽器的Postman來做測試：
 
- - 向服务器发送我们的用户名和密码，获取对应的Token。
+ - 向伺服器傳送我們的使用者名稱和密碼，獲取對應的Token。
 
-如下是``curl``创建的请求，在这其中我们发送了我们的用户和密码。
+如下是``curl``建立的請求，在這其中我們傳送了我們的使用者和密碼。
 
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"username":"admin","password":"root"}' http://localhost:8000/api-token-auth
-``` 
+```
 
-然后服务端给我们返回了对应的Token，它可以用于后面的创建文章、获取用户信息等等的功能。下面是一个Token的示例：
+然後服務端給我們返回了對應的Token，它可以用於後面的建立文章、獲取使用者資訊等等的功能。下面是一個Token的示例：
 
 ```
 {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhAcGhvZGFsLmNvbSIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE0NjQ4NzQ1MDZ9.B5LEeIlGDTGggD6dh9akGRKx0Hk09wjylQRLas6kjGM"}
 ```
 
-### 登录表单
+### 登入表單
 
-现在，我们要先做的一件事就是，创建一个用于登录的表单。
+現在，我們要先做的一件事就是，建立一個用於登入的表單。
 
 ```
 <form #loginCreds="ngForm" (ngSubmit)="login(loginCreds.value)">
@@ -552,15 +552,15 @@ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin","passwo
   </ion-item>
 
   <div padding>
-    <button block type="submit">登录</button>
+    <button block type="submit">登入</button>
   </div>
 </form>
 ```
 
-我们创建一个名为``loginCreds``的ngForm，在我们提交的时候我们就调用login方法，并把其中的值（username、password）传过去。而在我们的代码里，我们所要做的就是和上面一样将数据post到之前的Auth API的地址：
+我們建立一個名為``loginCreds``的ngForm，在我們提交的時候我們就呼叫login方法，並把其中的值（username、password）傳過去。而在我們的程式碼裡，我們所要做的就是和上面一樣將資料post到之前的Auth API的地址：
 
 ```
-constructor(http: Http, nav:NavController) {
+function Object() { [native code] }(http: Http, nav:NavController) {
   this.nav = nav;
   this.http = http;
   this.local.get('id_token').then(
@@ -586,9 +586,9 @@ authSuccess(token) {
 }
 ```
 
-在我们成功的获取到Token的时候，保存这个Token，并调用jwtHelper来解码Token，并从中获取我们的username。
+在我們成功的獲取到Token的時候，儲存這個Token，並呼叫jwtHelper來解碼Token，並從中獲取我們的username。
 
-同时，对于我们来说要登出就是一件容易的，删除这个token，将用户名清空。
+同時，對於我們來說要登出就是一件容易的，刪除這個token，將使用者名稱清空。
 ```
 logout() {
   this.local.remove('id_token');
@@ -598,17 +598,17 @@ logout() {
 
 ### Profile
 
-当我们获取到这个Token，我们也可以顺便获取用户的用户名、邮件等等的信息给用户。我们所要做的就是再获取一次API，但是在获取这次API的时候，我们需要上传我们的Token。因此我们需要一个简单的AuthHelper来帮助我们。
+當我們獲取到這個Token，我們也可以順便獲取使用者的使用者名稱、郵件等等的資訊給使用者。我們所要做的就是再獲取一次API，但是在獲取這次API的時候，我們需要上傳我們的Token。因此我們需要一個簡單的AuthHelper來幫助我們。
 
 ####AuthHttp
 
-虽然我们要做的仅仅只是在我们的Header中，添加一个字段，它的值就是Token的值。但是这部分的逻辑交给Angular2-JWT来做可能会好一点，它提供了一个AuthHTTP方法可以让每次请求都带上这个Header。首先我们需要安装这个库：
+雖然我們要做的僅僅只是在我們的Header中，新增一個欄位，它的值就是Token的值。但是這部分的邏輯交給Angular2-JWT來做可能會好一點，它提供了一個AuthHTTP方法可以讓每次請求都帶上這個Header。首先我們需要安裝這個庫：
 
 ```
 npm install angular2-jwt
 ```
 
-然后在我们``app.ts``中添加这个provider，并指明它的header前缀是JWT。
+然後在我們``app.ts``中新增這個provider，並指明它的header字首是JWT。
 
 ```javascript
 @App({
@@ -626,11 +626,11 @@ npm install angular2-jwt
 })
 ```
 
-现在，我们就可以用和Http一样的方式去获取用户信息。
+現在，我們就可以用和Http一樣的方式去獲取使用者資訊。
 
-#### 获取用户信息
+#### 獲取使用者資訊
 
-现在我们所需要做的就是发出我们的API去获取用户的信息：
+現在我們所需要做的就是發出我們的API去獲取使用者的資訊：
 
 ```javascript
 authSuccess(token) {
@@ -650,7 +650,7 @@ authSuccess(token) {
 }
 ```
 
-只是我们的API似乎还不支持这样的功能。它的实现方式和我们之前的AutoComplete是一样的，也是搜索用户名：
+只是我們的API似乎還不支援這樣的功能。它的實現方式和我們之前的AutoComplete是一樣的，也是搜尋使用者名稱：
 
 ```python
 def list(self, request):
@@ -663,7 +663,7 @@ def list(self, request):
 ```
 
 
-然后再显示这些数据：
+然後再顯示這些資料：
 
 ```
 <div *ngIf="auth.authenticated()">
@@ -673,14 +673,14 @@ def list(self, request):
     <button block (click)="logout()">Logout</button>
   </div>
 </div>
-```  
+```
 
-不过由于我们Django自带的用户管理模块只有这点信息，我们也就只能显示这些信息了。下一步，我们就可以实现在我们的APP里去创建博客。
+不過由於我們Django自帶的使用者管理模組只有這點資訊，我們也就只能顯示這些資訊了。下一步，我們就可以實現在我們的APP裡去建立部落格。
 
-创建博客
+建立部落格
 ---
 
-在我们开始在APP端实现这个功能之前，我们先要实现一个高级点的用户授权管理——即只有用户登录或者用户的请求中带有Token的时候，我们才能创建博客。于是在这里我们所要做的就是实现一个``IsAuthenticatedOrReadOnly``，来判断用户是否有权限，如果没有的话，那么只让用户看到博客的内容。代码如下所示：
+在我們開始在APP端實現這個功能之前，我們先要實現一個高階點的使用者授權管理——即只有使用者登入或者使用者的請求中帶有Token的時候，我們才能建立部落格。於是在這裡我們所要做的就是實現一個``IsAuthenticatedOrReadOnly``，來判斷使用者是否有許可權，如果沒有的話，那麼只讓使用者看到部落格的內容。程式碼如下所示：
 
 ```python
 SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
@@ -709,14 +709,14 @@ class BlogpostSet(viewsets.ModelViewSet):
     queryset = Blogpost.objects.all()
     serializer_class = BlogpsotSerializer
 
-```        
+```
 
-接着，我们可以创建一个Modal来做这个工作。对于我们的博客表单来说，和登录没有太大的区别。
+接著，我們可以建立一個Modal來做這個工作。對於我們的部落格表單來說，和登入沒有太大的區別。
 
 ```
   <form #blogpostForm="ngForm" (ngSubmit)="create(blogpostForm.value)">
     <ion-item>
-      <ion-label>标题</ion-label>
+      <ion-label>標題</ion-label>
       <ion-input type="text" ngControl="title"></ion-input>
     </ion-item>
 
@@ -731,23 +731,23 @@ class BlogpostSet(viewsets.ModelViewSet):
     </ion-item>
 
     <ion-item>
-      <ion-label>内容</ion-label>
+      <ion-label>內容</ion-label>
       <ion-textarea type="text" ngControl="body"></ion-textarea>
     </ion-item>
 
     <div padding>
-      <button block type="submit">创建</button>
+      <button block type="submit">建立</button>
     </div>
 
   </form>
-```  
+```
 
-稍有不同的是在我们的标题栏里会有一个关闭按钮。
+稍有不同的是在我們的標題欄裡會有一個關閉按鈕。
 
 ```
 <ion-toolbar>
   <ion-title>
-    创建博客
+    建立部落格
   </ion-title>
   <ion-buttons start>
     <button (click)="close()">
@@ -758,7 +758,7 @@ class BlogpostSet(viewsets.ModelViewSet):
 </ion-toolbar>
 ```
 
-对于我们的实现代码来说，也是类似的，除了我们在发表成功的时候做的事情不一样——关闭这个Modal。
+對於我們的實現程式碼來說，也是類似的，除了我們在發表成功的時候做的事情不一樣——關閉這個Modal。
 
 ```
   close() {
@@ -778,9 +778,9 @@ class BlogpostSet(viewsets.ModelViewSet):
   postSuccess(data) {
     this.close()
   }
-```  
+```
 
-同时，我们需要在我们的首页里添加这样的一个入口。
+同時，我們需要在我們的首頁裡新增這樣的一個入口。
 
 ```
   <button fab fab-bottom fab-right (click)="createBlog()" calm>
@@ -788,7 +788,7 @@ class BlogpostSet(viewsets.ModelViewSet):
   </button>
 ```
 
-以及它的处理逻辑：
+以及它的處理邏輯：
 
 ```
   createBlog() {
@@ -796,6 +796,3 @@ class BlogpostSet(viewsets.ModelViewSet):
     this.nav.present(modal)
   }
 ```
-  
-
-

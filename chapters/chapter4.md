@@ -1,41 +1,41 @@
-更完善的博客系统
+更完善的部落格系統
 ===
 
-在Django框架中，内置了很多应用在它的"contrib"包中，这些包括：
+在Django框架中，內建了很多應用在它的"contrib"包中，這些包括：
 
- - 一个可扩展的认证系统
- - 动态站点管理页面
- - 一组产生RSS和Atom的工具
- - 一个灵活的评论系统
- - 产生Google站点地图（Google Sitemaps）的工具
- - 防止跨站请求伪造（cross-site request forgery）的工具
- - 一套支持轻量级标记语言（Textile和Markdown）的模板库
- - 一套协助创建地理信息系统（GIS）的基础框架
+ - 一個可擴充套件的認證系統
+ - 動態站點管理頁面
+ - 一組產生RSS和Atom的工具
+ - 一個靈活的評論系統
+ - 產生Google站點地圖（Google Sitemaps）的工具
+ - 防止跨站請求偽造（cross-site request forgery）的工具
+ - 一套支援輕量級標記語言（Textile和Markdown）的模板庫
+ - 一套協助建立地理資訊系統（GIS）的基礎框架
 
-这意味着，我们可以直接用Django一些内置的组件来完成很多功能，先让我们来看看怎么完成一个简单的评论功能。
+這意味著，我們可以直接用Django一些內建的元件來完成很多功能，先讓我們來看看怎麼完成一個簡單的評論功能。
 
 
-静态页面
+靜態頁面
 ---
 
-Django带有一个可选的“flatpages”应用，可以让我们存储简单的“扁平化(flat)”页面在数据库中，并且可以通过Django的管理界面以及一个Python API来处理要管理的内容。这样的一个静态页面，一般包含下面的几个属性：
+Django帶有一個可選的“flatpages”應用，可以讓我們儲存簡單的“扁平化(flat)”頁面在資料庫中，並且可以通過Django的管理介面以及一個Python API來處理要管理的內容。這樣的一個靜態頁面，一般包含下面的幾個屬性：
 
- - 标题
+ - 標題
  - URL
- - 内容(Content)
+ - 內容(Content)
  - Sites
- - 自定义模板（可选）
+ - 自定義模板（可選）
 
-为了使用它来创建静态页面，我们需要在数据库中存储对应的映射关系，并创建对应的静态页面。 
+為了使用它來建立靜態頁面，我們需要在資料庫中儲存對應的對映關係，並建立對應的靜態頁面。
 
-### 安装 flatpages
+### 安裝 flatpages
 
-为此我们需要添加两个应用到``settings.py``文件的``INSTALLED_APPS``中：
+為此我們需要新增兩個應用到``settings.py``檔案的``INSTALLED_APPS``中：
 
- - ``django.contrib.sites``——“sites”框架，它用于将对象和功能与特定的站点关联。同时，它还是域名和你的Django 站点名称之间的对应关系所保存的位置，即我们需要在这个地方设置我们的网站的域名。
- - ``django.contrib.flatpages``，即上文说到的内容。
+ - ``django.contrib.sites``——“sites”框架，它用於將物件和功能與特定的站點關聯。同時，它還是域名和你的Django 站點名稱之間的對應關係所儲存的位置，即我們需要在這個地方設定我們的網站的域名。
+ - ``django.contrib.flatpages``，即上文說到的內容。
 
-在添加``django.contrib.sites``的时候，我们需要创建一个``SITE_ID``。通过这个值等于1，除非我们打算用这个框架去管理多个站点。代码如下所示：
+在新增``django.contrib.sites``的時候，我們需要建立一個``SITE_ID``。通過這個值等於1，除非我們打算用這個框架去管理多個站點。程式碼如下所示：
 
 ```
 SITE_ID = 1
@@ -53,15 +53,15 @@ INSTALLED_APPS = (
 )
 ```
 
-接着，还添加对应的中间件``django.contrib.flatpages.middleware.FlatpageFallbackMiddleware``到``settings.py``文件的``MIDDLEWARE_CLASSES``中。
+接著，還新增對應的中介軟體``django.contrib.flatpages.middleware.FlatpageFallbackMiddleware``到``settings.py``檔案的``MIDDLEWARE_CLASSES``中。
 
-然后，我们需要创建对应的URL来管理所有的静态页面。下面的代码是将静态页面都放在pages路径下，即如果我们有一个about的页面，那么对应的URL会变成 http://localhost/pages/about/。
+然後，我們需要建立對應的URL來管理所有的靜態頁面。下面的程式碼是將靜態頁面都放在pages路徑下，即如果我們有一個about的頁面，那麼對應的URL會變成 http://localhost/pages/about/。
 
 ```python
 url(r'^pages/', include('django.contrib.flatpages.urls')),
 ```
 
-当然我们也可以将其配置为类似于 http://localhost/about/ 这样的URL：
+當然我們也可以將其配置為類似於 http://localhost/about/ 這樣的URL：
 
 ```
 urlpatterns += [
@@ -69,7 +69,7 @@ urlpatterns += [
 ]
 ```
 
-最后，我们还需要做一个数据库迁移：
+最後，我們還需要做一個資料庫遷移：
 
 ```
 Operations to perform:
@@ -79,57 +79,57 @@ Running migrations:
   Applying flatpages.0001_initial... OK
 ```
 
-### 创建模板
+### 建立模板
 
-接着，我们可以在``templates``目录下创建``flatpages``文件，用于存放我们的模板文件，下面是一个简单的模板：
+接著，我們可以在``templates``目錄下建立``flatpages``檔案，用於存放我們的模板檔案，下面是一個簡單的模板：
 
 ```
 {% extends 'base.html' %}
-{% block title %}关于我{% endblock %}
+{% block title %}關於我{% endblock %}
 
 {% block content %}
 <div>
-<h2>关于博客</h2>
-    <p>一方面，找到更多志同道合的人；另一方面，扩大影响力。</p>
-    <p>内容包括</p>
+<h2>關於部落格</h2>
+    <p>一方面，找到更多志同道合的人；另一方面，擴大影響力。</p>
+    <p>內容包括</p>
     <ul>
-        <li>成长记录</li>
-        <li>技术笔记</li>
+        <li>成長記錄</li>
+        <li>技術筆記</li>
         <li>生活思考</li>
-        <li>个人试验</li>
+        <li>個人試驗</li>
     </ul>
 </div>
 {% endblock %}
 ```
 
-当我们完成模板后，我们就需要登录后台，并添加对应的静态页面的配置：
+當我們完成模板後，我們就需要登入後臺，並新增對應的靜態頁面的配置：
 
-![管理员界面创建flatpage](http://growth-in-action.phodal.com/images/admin-flatpages-create.jpg)
+![管理員介面建立flatpage](http://growth-in-action.phodal.com/images/admin-flatpages-create.jpg)
 
-然后从高级选项中填写我们的静态页面的路径，我们就可以完成静态页面的创建。如下图所示：
+然後從高階選項中填寫我們的靜態頁面的路徑，我們就可以完成靜態頁面的建立。如下圖所示：
 
-![flatpage高级选项](http://growth-in-action.phodal.com/images/flatpages-advance-option.png)
+![flatpage高階選項](http://growth-in-action.phodal.com/images/flatpages-advance-option.png)
 
-最后，还要有个链接加到首页的导航中：
+最後，還要有個連結加到首頁的導航中：
 
 ```html
 <li>
-    <a href="/pages/about/">关于我</a>
+    <a href="/pages/about/">關於我</a>
 </li>
-```                
+```
 
-下面让我们为我们的博客添加一个简单的评论功能吧！
+下面讓我們為我們的部落格新增一個簡單的評論功能吧！
 
-评论功能
+評論功能
 ---
 
-在早期的Django版本(1.6以前)中，Comments是自带的组件，但是后来它被从标准组件中移除了。因此，我们需要安装comments这个包：
+在早期的Django版本(1.6以前)中，Comments是自帶的元件，但是後來它被從標準元件中移除了。因此，我們需要安裝comments這個包：
 
 ```
 pip install django-contrib-comments
 ```
 
-再把它及它的版本添加到``requirements.txt``，如下所示：
+再把它及它的版本新增到``requirements.txt``，如下所示：
 
 ```
 django==1.9.4
@@ -141,7 +141,7 @@ django-cors-headers==1.1.0
 django-contrib-comments==1.7.1
 ```
 
-接着，将``django.contrib.sites``和``django_comments``添加到``INSTALLED_APPS``，如下:
+接著，將``django.contrib.sites``和``django_comments``新增到``INSTALLED_APPS``，如下:
 
 ```python
 INSTALLED_APPS = (
@@ -158,7 +158,7 @@ INSTALLED_APPS = (
 )
 ```
 
-然后做一下数据库迁移我们就可以完成对其的初始化：
+然後做一下資料庫遷移我們就可以完成對其的初始化：
 
 ```
 Operations to perform:
@@ -173,19 +173,19 @@ Running migrations:
 (growth-django)
 ```
 
-然后再添加URL到urls.py:
+然後再新增URL到urls.py:
 
 ```
 url(r'^comments/', include('django_comments.urls')),
 ```
 
-现在，我们就可以登录后台，来创建对应的评论，但是这是时候评论是不会显示到页面上的。所以我们需要对我们的博客详情页的模板进行修改，在其中添加一句:
+現在，我們就可以登入後臺，來建立對應的評論，但是這是時候評論是不會顯示到頁面上的。所以我們需要對我們的部落格詳情頁的模板進行修改，在其中新增一句:
 
 ```html
 {% render_comment_list for post %}
 ```
 
-用于显示对应博客的评论，最近我们的模板文件如下面的内容所示：
+用於顯示對應部落格的評論，最近我們的模板檔案如下面的內容所示：
 
 ```
 {% extends 'base.html' %}
@@ -212,28 +212,28 @@ url(r'^comments/', include('django_comments.urls')),
 {% endblock %}
 ```
 
-遗憾的是，当我们刷新页面的时候，页面报错了，原因如下所示：
+遺憾的是，當我們重新整理頁面的時候，頁面報錯了，原因如下所示：
 
-![SITE_ID报错](http://growth-in-action.phodal.com/images/site_id_issue.jpg)
+![SITE_ID報錯](http://growth-in-action.phodal.com/images/site_id_issue.jpg)
 
-我们还需要定义一个``SITE_ID``，添加下面的代码到``settings.py``文件中即可：
+我們還需要定義一個``SITE_ID``，新增下面的程式碼到``settings.py``檔案中即可：
 
 ```python
 SITE_ID = 1
 ```
 
-然后，我们就可以从后台创建评论：
+然後，我們就可以從後臺建立評論：
 
-![后台创建评论](http://growth-in-action.phodal.com/images/create-comment-backend.jpg)
+![後臺建立評論](http://growth-in-action.phodal.com/images/create-comment-backend.jpg)
 
 Sitemap
 ---
 
-我们在之前的文章中提到过SEO的重要性，这里只是简单地对Sitemap的内容进行展开。
+我們在之前的文章中提到過SEO的重要性，這裡只是簡單地對Sitemap的內容進行展開。
 
-### 站点地图介绍
+### 站點地圖介紹
 
-Sitemap译为站点地图，它用于告诉搜索引擎他们网站上有哪些可供抓取的网页。常见的Sitemap的形式是以xml出现了，如下是我博客的sitemap.xml的一部分内容：
+Sitemap譯為站點地圖，它用於告訴搜尋引擎他們網站上有哪些可供抓取的網頁。常見的Sitemap的形式是以xml出現了，如下是我部落格的sitemap.xml的一部分內容：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -247,39 +247,39 @@ Sitemap译为站点地图，它用于告诉搜索引擎他们网站上有哪些�
 </urlset>
 ```
 
-从上面的内容中，我们可以发现它包含了下面的一些XML标签：
+從上面的內容中，我們可以發現它包含了下面的一些XML標籤：
 
- - urlset，封装该文件，并指明当前协议的标准。
- - url，每个URL实体的父标签。
- - loc，指明页面的URL
- - lastmod（可选），内容最后的修改时间
- - changefreq（可选），内容的修改频率，用于告知搜索引擎抓取频率。它包含的值有：``always``、``hourly``、``daily``、``weekly``、``monthly``、``yearly``、``never``
- - priority（可选），范围是从0.0~1.0，搜索引擎用于对你网站在搜索结果的排序，即内部的优先级排序。需要注意的是如果你把所有页面的优先级设置为1，那么它就和没有设置的效果是一样的。
+ - urlset，封裝該檔案，並指明當前協議的標準。
+ - url，每個URL實體的父標籤。
+ - loc，指明頁面的URL
+ - lastmod（可選），內容最後的修改時間
+ - changefreq（可選），內容的修改頻率，用於告知搜尋引擎抓取頻率。它包含的值有：``always``、``hourly``、``daily``、``weekly``、``monthly``、``yearly``、``never``
+ - priority（可選），範圍是從0.0~1.0，搜尋引擎用於對你網站在搜尋結果的排序，即內部的優先順序排序。需要注意的是如果你把所有頁面的優先順序設定為1，那麼它就和沒有設定的效果是一樣的。
 
-从上面的内容中，我们可以发现：
+從上面的內容中，我們可以發現：
 
- > 站点地图能够提供与其中列出的网页相关的宝贵元数据：元数据是网页的相关信息，例如网页的最近更新时间、网页的更改频率以及网页相较于网站中其他网址的重要程度。 ——内容来自 Google Sitemap帮助文档。
+ > 站點地圖能夠提供與其中列出的網頁相關的寶貴後設資料：後設資料是網頁的相關資訊，例如網頁的最近更新時間、網頁的更改頻率以及網頁相較於網站中其他網址的重要程度。 ——內容來自 Google Sitemap幫助文件。
 
 
-现在，我们一共有三种类型的页面：
+現在，我們一共有三種類型的頁面：
 
- - 首页，通常来说首页的priority应该是最高的，而它的``changefreq``可以设置为``daily``、``weekly``，这取决于你的博客的更新频率。如果你是做一些UGC(用户生成内容)的网站，那么你应该设置为``always``、``hourly``。
- - 动态生成的博客详情页，这些内容一般很少进行改变，所以这的changefreq会比较低，如``yearly``或者``monthly``——并且没有高的必要性，它会导致搜索引擎一直抓取你的内容。这会对服务器造成一定的压力，并且无助于你网站的排名。
- - 静态页面，如About页面，它可以有一个高的``priority``，但是它的``changefreq``也不一定很高。
+ - 首頁，通常來說首頁的priority應該是最高的，而它的``changefreq``可以設定為``daily``、``weekly``，這取決於你的部落格的更新頻率。如果你是做一些UGC(使用者生成內容)的網站，那麼你應該設定為``always``、``hourly``。
+ - 動態生成的部落格詳情頁，這些內容一般很少進行改變，所以這的changefreq會比較低，如``yearly``或者``monthly``——並且沒有高的必要性，它會導致搜尋引擎一直抓取你的內容。這會對伺服器造成一定的壓力，並且無助於你網站的排名。
+ - 靜態頁面，如About頁面，它可以有一個高的``priority``，但是它的``changefreq``也不一定很高。
 
-下面就让我们从首页说起。
+下面就讓我們從首頁說起。
 
-### 创建首页的Sitemap
+### 建立首頁的Sitemap
 
-与上面创建静态页面时一样，我们也需要添加``django.contrib.sitemaps``到``INSTALLED_APPS``中。
+與上面建立靜態頁面時一樣，我們也需要新增``django.contrib.sitemaps``到``INSTALLED_APPS``中。
 
-然后，我们需要指定一个URL规则。通常来说，这个URL是叫sitemap.xml——一个约定俗成的标准。我们需要创建一个sitemaps对象来存储所有的sitemaps:
+然後，我們需要指定一個URL規則。通常來說，這個URL是叫sitemap.xml——一個約定俗成的標準。我們需要建立一個sitemaps物件來儲存所有的sitemaps:
 
 ```
 url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ```
 
-由于，我们使用的视图处理方法是``django.contrib.sitemaps.views.sitemap``，代码如下所示:
+由於，我們使用的檢視處理方法是``django.contrib.sitemaps.views.sitemap``，程式碼如下所示:
 
 ```
 
@@ -291,9 +291,9 @@ def sitemap(request, sitemaps, section=None,
     req_site = get_current_site(request)
 ```
 
-在这个方法里，它指定了默认模板的位置，即在``template``目录中。
+在這個方法裡，它指定了預設模板的位置，即在``template``目錄中。
 
-现在，我们需要创建几种不同类型的sitemap，如下是首页的Sitemap，它继承自Django的Sitemap类：
+現在，我們需要建立幾種不同類型的sitemap，如下是首頁的Sitemap，它繼承自Django的Sitemap類：
 
 ```python
 class PageSitemap(Sitemap):
@@ -308,9 +308,9 @@ class PageSitemap(Sitemap):
 
 ```
 
-它定义了自己的priority是最高的1.0，同时每新频率为``daily``。然后在items里面去取它所要获取的URL，即``urls.py``中对应的``name``的``main``的URL。在这里我们只返回了``main``一个值，依据于下面的location方法中的``reverse``，它找到了main对应的URL，即首页。
+它定義了自己的priority是最高的1.0，同時每新頻率為``daily``。然後在items裡面去取它所要獲取的URL，即``urls.py``中對應的``name``的``main``的URL。在這裡我們只返回了``main``一個值，依據於下面的location方法中的``reverse``，它找到了main對應的URL，即首頁。
 
-最后结合首页sitemap.xml的``urls.py``代码如下所示：
+最後結合首頁sitemap.xml的``urls.py``程式碼如下所示：
 
 ```python
 from sitemap.sitemaps import PageSitemap
@@ -329,7 +329,7 @@ urlpatterns = patterns('',
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ```
 
-除此，我们还需要创建自己的``sitemap.xml``模板——自带的系统模板比较简单。
+除此，我們還需要建立自己的``sitemap.xml``模板——自帶的系統模板比較簡單。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -347,7 +347,7 @@ urlpatterns = patterns('',
 </urlset>
 ```
 
-最后，我们访问[http://localhost:8000/sitemap.xml](http://localhost:8000/sitemap.xml)，我们就可以获取到我们的``sitemap.xml``：
+最後，我們訪問[http://localhost:8000/sitemap.xml](http://localhost:8000/sitemap.xml)，我們就可以獲取到我們的``sitemap.xml``：
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -360,11 +360,11 @@ urlpatterns = patterns('',
 </urlset>
 ```
 
-下一步，我们仍可以直接创建出对应的静态页面的Sitemap。
+下一步，我們仍可以直接建立出對應的靜態頁面的Sitemap。
 
-### 创建静态页面的Sitemap
+### 建立靜態頁面的Sitemap
 
-相似的，我们也需要从items方法中，定义出我们所要创建页面的对象。
+相似的，我們也需要從items方法中，定義出我們所要建立頁面的物件。
 
 ```python
 from django.contrib.sitemaps import Sitemap
@@ -380,9 +380,9 @@ class FlatPageSitemap(Sitemap):
         return current_site.flatpage_set.filter(registration_required=False)
 ```
 
-只不过这个方法可能会稍微麻烦一些，我们需要从数据库中取出当前的站点。再取出当前站点中的flatpage集合，对过滤那些不需要注册的页面，即代码中的``registration_required=False``。
+只不過這個方法可能會稍微麻煩一些，我們需要從資料庫中取出當前的站點。再取出當前站點中的flatpage集合，對過濾那些不需要註冊的頁面，即程式碼中的``registration_required=False``。
 
-最后再将这个对象放入sitemaps即可：
+最後再將這個物件放入sitemaps即可：
 
 ```
 from sitemap.sitemaps import PageSitemap, FlatPageSitemap
@@ -393,11 +393,11 @@ sitemaps =  {
 }
 ```
 
-现在，我们可以完成博客的Sitemap了。
+現在，我們可以完成部落格的Sitemap了。
 
-### 创建博客的Sitemap
+### 建立部落格的Sitemap
 
-同上面一样的是，我们依然需要在items方法中返回所有的博客内容。并且在lastmod中，返回这篇博客的发表日期——以免他们返回的是同一个日期：
+同上面一樣的是，我們依然需要在items方法中返回所有的部落格內容。並且在lastmod中，返回這篇部落格的發表日期——以免他們返回的是同一個日期：
 
 ```python
 class BlogSitemap(Sitemap):
@@ -411,7 +411,7 @@ class BlogSitemap(Sitemap):
         return obj.posted
 ```
 
-最近我们的Sitemap.xml，如下所示:
+最近我們的Sitemap.xml，如下所示:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -434,28 +434,28 @@ class BlogSitemap(Sitemap):
 </urlset>
 ```
 
-### 提交到搜索引擎
+### 提交到搜尋引擎
 
-这里我们以Google Webmaster为例简单的介绍一下如何使用各种站长工具来提交sitemap.xml。
+這裡我們以Google Webmaster為例簡單的介紹一下如何使用各種站長工具來提交sitemap.xml。
 
-我们可以登录Google的Webmaster：[https://www.google.com/webmasters/tools/home?hl=zh-cn](https://www.google.com/webmasters/tools/home?hl=zh-cn)，然后点击添加属性来创建一个新的网站:
+我們可以登入Google的Webmaster：[https://www.google.com/webmasters/tools/home?hl=zh-cn](https://www.google.com/webmasters/tools/home?hl=zh-cn)，然後點選新增屬性來建立一個新的網站:
 
-![添加网站](http://growth-in-action.phodal.com/images/add-property.png)
+![新增網站](http://growth-in-action.phodal.com/images/add-property.png)
 
-这时候Google需要确认这个网站是你的，所以它提供几种方法来验证，除了下面的推荐方法：
+這時候Google需要確認這個網站是你的，所以它提供幾種方法來驗證，除了下面的推薦方法：
 
-![推荐的验证方式](http://growth-in-action.phodal.com/images/google-add-website.png)
+![推薦的驗證方式](http://growth-in-action.phodal.com/images/google-add-website.png)
 
-我们可以使用下面的这一些方法：
+我們可以使用下面的這一些方法：
 
-![备选的难方法](http://growth-in-action.phodal.com/images/google-addition-method.png)
+![備選的難方法](http://growth-in-action.phodal.com/images/google-addition-method.png)
 
-我个人比较喜欢用HTML Tag的方式来实现
+我個人比較喜歡用HTML Tag的方式來實現
 
-![HTML标签验证](http://growth-in-action.phodal.com/images/html-tag.png)
+![HTML標籤驗證](http://growth-in-action.phodal.com/images/html-tag.png)
 
-在我们完成验证之后，我们就可以在后台手动提交Sitemap.xml了。
+在我們完成驗證之後，我們就可以在後臺手動提交Sitemap.xml了。
 
 ![提交Sitemap.xml](http://growth-in-action.phodal.com/images/google-add-sitemap.png)
 
-点击上方的**添加/测试站点地图**即可。
+點選上方的**新增/測試站點地圖**即可。
