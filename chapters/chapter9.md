@@ -1,12 +1,12 @@
-配置管理 
+配置管理
 ===
 
 local settings
 ---
 
-作为一个开源项目，我们在这方面做得并不是特别好——当然是有意如此的。不过，这里我们还是做一些简单的介绍。对于我们的项目来说，我们需要一些额外的配置，如我们的数据库中的``DATABASES``、``DEFAULT_AUTHENTICATION_CLASSES``、``CORS_ORIGIN_ALLOW_ALL``、``SECRET_KEY``应该在不同的环境中都有不同的配置。
+作為一個開源項目，我們在這方面做得並不是特別好——當然是有意如此的。不過，這裡我們還是做一些簡單的介紹。對於我們的項目來說，我們需要一些額外的配置，如我們的資料庫中的``DATABASES``、``DEFAULT_AUTHENTICATION_CLASSES``、``CORS_ORIGIN_ALLOW_ALL``、``SECRET_KEY``應該在不同的環境中都有不同的配置。
 
-我们可以一个创建``local_settings.py``，在里面放置一些关键的服务器相关的配置，如:
+我們可以一個建立``local_settings.py``，在裡面放置一些關鍵的伺服器相關的配置，如:
 
 ```python
 
@@ -42,4 +42,4 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 ```
 
-接着，我们只需要在我们的主``settiings.py``中引用即可。
+接著，我們只需要在我們的主``settiings.py``中引用即可。

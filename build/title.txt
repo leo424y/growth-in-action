@@ -1,2 +1,2 @@
-% Growth 实战篇 Django版
+% Growth 實戰篇 Django版
 % Phodal
